@@ -32,6 +32,8 @@ struct SettingsView: View {
                     Text("A constellation of the people you care about — gentle reminders to stay in touch.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                    Link("Contact Us", destination: URL(string: "https://kinly-lyly.pro/contact-us")!)
+                    Link("Privacy Policy", destination: URL(string: "https://kinly-lyly.pro/privacy-policy")!)
                 }
 
                 #if DEBUG

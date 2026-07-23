@@ -14,7 +14,16 @@ struct CircleHubView: View {
     @State private var section: Section = .reachOut
 
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
+            switch section {
+            case .reachOut: ReachOutKitView(dependencies: dependencies)
+            case .timeline: TimelineHubView(dependencies: dependencies)
+            case .milestones: MilestonesView(dependencies: dependencies)
+            case .play: PlayHubView(dependencies: dependencies)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             Picker("Section", selection: $section) {
                 ForEach(Section.allCases) { item in
                     Text(item.rawValue).tag(item)
@@ -23,17 +32,10 @@ struct CircleHubView: View {
             .pickerStyle(.segmented)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-
-            Group {
-                switch section {
-                case .reachOut: ReachOutKitView(dependencies: dependencies)
-                case .timeline: TimelineHubView(dependencies: dependencies)
-                case .milestones: MilestonesView(dependencies: dependencies)
-                case .play: PlayHubView(dependencies: dependencies)
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: 720)
+            .frame(maxWidth: .infinity)
+            .background(AppColor.background.opacity(0.96))
         }
-        .background(AppColor.background)
+        .background(AppColor.background.ignoresSafeArea())
     }
 }
